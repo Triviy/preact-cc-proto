@@ -2,6 +2,20 @@ import { h, Component } from 'preact';
 import getBrandStyle from '../../helpers/brand-styles-provider'
 
 export default class ExistingCard extends Component {
+	state = {
+		cvc: ""
+	}
+
+	updateCvc = () => {
+		console.log('event received');
+		this.setState({ cvc: "1" });
+	}
+
+	componentDidMount() {
+		console.log('mounted');
+		window.addEventListener('doabarrelrow', this.updateCvc, false);
+	}
+
 	render({ brand }) {
 		return (
 			<div id="DIV_1" style={getBrandStyle(brand)}>
@@ -10,7 +24,7 @@ export default class ExistingCard extends Component {
 						<label for="ember974" id="LABEL_4">
 							CVC
 						</label>
-						<input name="cvc-field" type="tel" maxlength="3" id="INPUT_5" />
+						<input name="cvc-field" type="tel" maxlength="3" id="INPUT_5" value={this.state.cvc}/>
 						<label for="ember974" id="LABEL_6">
 							<i id="I_7"></i>
 						</label>

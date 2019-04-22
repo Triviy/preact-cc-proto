@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kind of laucnehr</title>
+    </head>
+    <body>
+        <div>
+            <select id="card-type">
+                <option>new-card</option>
+                <option>existing-card</option>
+            </select>
+            <select id="brand">
+                <option>betsson</option>
+                <option>betsafe</option>
+                <option>oranje</option>
+            </select>
+        </div>
+        <br />
+        <div>
+            <label for="start">start</label>
+            <input type="text" id="start"/>
+            <label for="end">end</label>
+            <input type="text" id="end"/>
+        </div>
+        <br />
+        <div>
+            <input type="button" value="Open" onclick="onOpenClick()" id="open"/>
+            <input type="button" value="Send event" onclick="onSendClick()" id="send"/>
+        </div>
+        <br />
+        <iframe id="card-iframe" height="800px" width="800px"></iframe>
+        <script>
+            function onOpenClick() {
+                var cardType = document.getElementById("card-type").value;
+                var brand = document.getElementById("brand").value;
+                var start = document.getElementById("start").value;
+                var end = document.getElementById("end").value;
+                var iframe = document.getElementById("card-iframe");
+                iframe.src = `http://localhost:8080/${cardType}/${brand}?start=${start}&end=${end}`;
+            }
+
+            function onSendClick() {
+                var iframe = document.getElementById("card-iframe");
+                iframe.contentWindow.postMessage("doabarrelrow", '*');
+            }
+        </script>
+    </body>
+</html>
