@@ -6,14 +6,14 @@ export default class ExistingCard extends Component {
 		cvc: ""
 	}
 
-	updateCvc = () => {
+	updateCvc = (event) => {
 		console.log('event received');
 		this.setState({ cvc: "1" });
 	}
 
 	componentDidMount() {
 		console.log('mounted');
-		window.addEventListener('doabarrelrow', this.updateCvc, false);
+		addEventListener('doabarrelrow', this.updateCvc);
 	}
 
 	render({ brand }) {
