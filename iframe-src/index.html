@@ -26,6 +26,7 @@
         <div>
             <input type="button" value="Open" onclick="onOpenClick()" id="open"/>
             <input type="button" value="Send event" onclick="onSendClick()" id="send"/>
+            <input type="button" value="Send reaload event" onclick="onSendReloadClick()" id="send-reload"/>
         </div>
         <br />
         <iframe id="card-iframe" height="800px" width="800px" ></iframe>
@@ -39,8 +40,23 @@
                 iframe.src = `http://localhost:8080/${cardType}/${brand}?start=${start}&end=${end}`;
             }
 
+            function onSendReloadClick() {
+                var cardType = document.getElementById("card-type").value;
+                var brand = document.getElementById("brand").value;
+                var start = document.getElementById("start").value;
+                var end = document.getElementById("end").value;
+                var iframe = document.getElementById("card-iframe");
+                iframe.contentWindow.postMessage(
+                    { 
+                        type:"card-reload",
+                        brand: brand,
+                        cardType: cardType,
+                        start: start,
+                        end: end
+                    }, '*');
+            }
+
             function onSendClick() {
-                console.log("event sent");
                 var iframe = document.getElementById("card-iframe");
                 iframe.contentWindow.postMessage({ type:"do-a-barrel-roll" }, '*');
             }

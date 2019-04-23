@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { Router, Route } from 'preact-router';
+import { Router, Route, route } from 'preact-router';
 
 import OranjeNewCard from './oranje/new-card';
 import OranjeExistingCard from './oranje/existing-card';
@@ -15,6 +15,22 @@ export default class App extends Component {
 	handleRoute = e => {
 		this.currentUrl = e.url;
 	};
+
+	showState = (event) => {
+		if (event.data.type === "card-reload") {
+
+			console.log(event.data);
+			route(`${event.data.cardType}/${event.data.brand}`);
+		}
+	}
+
+	componentDidMount() {
+		addEventListener('message', this.showState, { passive:true });
+	}
+
+	componentWillUnmount() {
+		removeEventListener('message', this.showState, { passive:true });n
+	}
 
 	//https://github.com/developit/preact-router
 	render() {
