@@ -28,7 +28,7 @@
             <input type="button" value="Send event" onclick="onSendClick()" id="send"/>
         </div>
         <br />
-        <iframe id="card-iframe" height="800px" width="800px"></iframe>
+        <iframe id="card-iframe" height="800px" width="800px" ></iframe>
         <script>
             function onOpenClick() {
                 var cardType = document.getElementById("card-type").value;
@@ -40,8 +40,9 @@
             }
 
             function onSendClick() {
+                console.log("event sent");
                 var iframe = document.getElementById("card-iframe");
-                iframe.contentWindow.postMessage("doabarrelrow", '*');
+                iframe.contentWindow.postMessage({ type:"do-a-barrel-roll" }, '*');
             }
         </script>
     </body>

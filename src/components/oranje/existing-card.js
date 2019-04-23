@@ -3,17 +3,23 @@ import getBrandStyle from '../../helpers/brand-styles-provider'
 
 export default class ExistingCard extends Component {
 	state = {
-		cvc: ""
+		cvc: "",
+		currentNumber: 0
 	}
 
 	updateCvc = (event) => {
-		console.log('event received');
-		this.setState({ cvc: "1" });
+		if (event.data.type === "do-a-barrel-roll") {
+			this.setState({ cvc: this.state.cvc + this.state.currentNumber });
+			this.setState({ currentNumber: this.state.currentNumber + 1 });
+		}
 	}
 
 	componentDidMount() {
-		console.log('mounted');
-		addEventListener('doabarrelrow', this.updateCvc);
+		addEventListener('message', this.updateCvc, { passive:true });
+	}
+
+	componentWillUnmount() {
+		removeEventListener('message', this.updateCvc, { passive:true });
 	}
 
 	render({ brand }) {
